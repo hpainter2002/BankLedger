@@ -7,6 +7,47 @@ namespace BankLedgerVS17
     {
         static void Main(string[] args)
         {
+            Datastore MyDatastore = new Datastore();
+            User CurrentUser = new User();
+
+            Console.WriteLine("Welcome to the Best Bank Ledger");
+            Console.WriteLine("What would you like to do?");
+            Console.WriteLine("To create an account press [C]");
+            Console.WriteLine("To Login press [L]");
+            Console.WriteLine("To exit press [E]");
+            Console.WriteLine("To logout press [O]");
+            var userInput = Console.ReadLine();
+
+            if (userInput.ToLower() == "c")
+            {
+                Console.WriteLine("Please enter the username");
+                var username = Console.ReadLine();
+                Console.WriteLine("Please enter the password");
+                var password = Console.ReadLine();
+                Console.WriteLine("Please confirm the password");
+                var confirmPassword = Console.ReadLine();
+
+                if (password == confirmPassword)
+                {
+                    User user1 = new User();
+                    user1.Username = username;
+                    user1.Password = password;
+
+                    if (user1.Username != null)
+                    {
+                        MyDatastore.Data.Add(user1.Username, user1);
+                    }
+
+                    CurrentUser = user1;
+                }
+                else
+                {
+                    Console.WriteLine("Passwords didn't match please try again");
+                }
+
+                Console.WriteLine(CurrentUser.Username + " you are now logged in!");
+
+            }
 
         }
     }
@@ -15,12 +56,20 @@ namespace BankLedgerVS17
     {
         public void CreateNewAccount(User user)
         {
-
+            if (AuthenticateUser(user)) ;
         }
 
-        public void AuthenticateUser(User user)
+        public bool AuthenticateUser(User user)
         {
+            try
+            {
 
+            }
+            catch (Exception)
+            {
+
+            }
+            return true;
         }
 
         public void Login(User user)
@@ -36,7 +85,7 @@ namespace BankLedgerVS17
 
     class Datastore
     {
-
+        public Dictionary<string, User> Data = new Dictionary<string, User>();
     }
 
     class ViewAccount : Account
@@ -59,7 +108,10 @@ namespace BankLedgerVS17
     {
         public string Username { get; set; }
         public string Password { get; set; }
+        public string ConfirmPassword { get; set; }
         public bool ValidUser { get; set; }
+
+        public List<Account> Accounts = new List<Account>();
     }
 
     class Account
