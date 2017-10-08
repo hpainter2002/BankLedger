@@ -20,13 +20,15 @@ namespace BankLedgerVS17
             while (true)
             {
                 Console.Clear();
-                Console.WriteLine("*******************************");
-                Console.WriteLine("Welcome to the Best Bank Ledger");
-                Console.WriteLine("*******************************");
-                Console.WriteLine();
-                Console.WriteLine("1. Create a new user");
-                Console.WriteLine("2. Login");
-                Console.WriteLine("3. Exit");
+                Console.WriteLine("*******************************************");
+                Console.WriteLine("*---- Welcome to the Best Bank Ledger ----*");
+                Console.WriteLine("*******************************************");
+                Console.WriteLine("*                                         *");
+                Console.WriteLine("* 1. Create a new user                    *");
+                Console.WriteLine("* 2. Login                                *");
+                Console.WriteLine("* 3. Exit                                 *");
+                Console.WriteLine("*                                         *");
+                Console.WriteLine("*******************************************");
                 Console.WriteLine();
                 Console.Write("Please select an option: ");
 
@@ -51,9 +53,9 @@ namespace BankLedgerVS17
         private static void CreateNewAccount(User user)
         {
             Console.Clear();
-            Console.WriteLine("*********************");
-            Console.WriteLine("Account Registration");
-            Console.WriteLine("*********************");
+            Console.WriteLine("********************************");
+            Console.WriteLine("*---- Account Registration ----*");
+            Console.WriteLine("********************************");
 
             Console.WriteLine();
             Console.Write("Please enter the account name: ");
@@ -67,14 +69,15 @@ namespace BankLedgerVS17
             while (true)
             {
                 Console.Clear();
-                Console.WriteLine("*******************************");
-                Console.WriteLine($"Welcome {user.Username}");
-                Console.WriteLine("*******************************");
-                Console.WriteLine();
-
-                Console.WriteLine("1. Create a new account");
-                Console.WriteLine("2. Select an account");
-                Console.WriteLine("3. Logout");
+                Console.WriteLine("****************************************");
+                Console.WriteLine($"*----   Welcome {user.Username}   ----*");
+                Console.WriteLine("****************************************");
+                Console.WriteLine("*                                      *");
+                Console.WriteLine("* 1. Create a new account              *");
+                Console.WriteLine("* 2. Select an account                 *");
+                Console.WriteLine("* 3. Logout                            *");
+                Console.WriteLine("*                                      *");
+                Console.WriteLine("****************************************");
                 Console.WriteLine();
                 Console.Write("Please select an option: ");
                 string userInput = Console.ReadLine();
@@ -107,9 +110,9 @@ namespace BankLedgerVS17
             }
 
             Console.Clear();
-            Console.WriteLine("*********************");
-            Console.WriteLine("Account Selection");
-            Console.WriteLine("*********************");
+            Console.WriteLine("*****************************");
+            Console.WriteLine("----- Account Selection -----");
+            Console.WriteLine("*****************************");
             Console.WriteLine();
 
             for (int i = 0; i < user.Accounts.Count; ++i)
@@ -157,9 +160,9 @@ namespace BankLedgerVS17
         private static void CreateNewUser(LedgerManager ledgerManager)
         {
             Console.Clear();
-            Console.WriteLine("************");
-            Console.WriteLine("Registration");
-            Console.WriteLine("************");
+            Console.WriteLine("**************************");
+            Console.WriteLine("*----- Registration -----*");
+            Console.WriteLine("**************************");
             Console.WriteLine();
 
 
@@ -202,27 +205,29 @@ namespace BankLedgerVS17
             while (true)
             {
                 Console.Clear();
-                Console.WriteLine("*******************************");
-                Console.WriteLine($"Account {account.AccountName}");
-                Console.WriteLine("*******************************");
-                Console.WriteLine();
-
-                Console.WriteLine("1. Deposit");
-                Console.WriteLine("2. Withdrawl");
-                Console.WriteLine("3. Check Balance");
-                Console.WriteLine("4. Transaction History");
-                Console.WriteLine("5. Back to Previous Menu");
-                Console.WriteLine("6. Logout");
+                Console.WriteLine("******************************************");
+                Console.WriteLine($"*---- Account {account.AccountName} ----*");
+                Console.WriteLine("******************************************");
+                Console.WriteLine("*                                        *");
+                Console.WriteLine("* 1. Deposit                             *");
+                Console.WriteLine("* 2. Withdrawl                           *");
+                Console.WriteLine("* 3. Check Balance                       *");
+                Console.WriteLine("* 4. Transaction History                 *");
+                Console.WriteLine("* 5. Back to Previous Menu               *");
+                Console.WriteLine("* 6. Logout                              *");
+                Console.WriteLine("*                                        *");
+                Console.WriteLine("******************************************");
                 Console.WriteLine();
                 Console.Write("Please select an option: ");
                 string userInput = Console.ReadLine();
 
-                if (userInput == "1" || userInput == "2")
+                if (userInput == "1" || userInput == "2" && account.AccountBalance != 0)
                 {
                     bool isAmountValid = false;
 
                     while (!isAmountValid)
                     {
+                        Console.WriteLine();
                         account.PrintBalance();
                         Console.WriteLine();
                         Console.Write("Please Enter Amount: $");
@@ -241,10 +246,18 @@ namespace BankLedgerVS17
 
                             if (!isAmountValid)
                             {
-                                Console.WriteLine("Invalid amount entered");
+                                Console.WriteLine("Invalid amount entered, please enter a valid amount.");
                             }
                         }
                     }
+                }
+                else if (userInput == "2" && account.AccountBalance == 0)
+                {
+                    Console.WriteLine();
+                    Console.WriteLine("Unable to withdraw! Insufficient account balance!");
+                    Console.WriteLine();
+                    Console.WriteLine("Press any key to return to menu");
+                    Console.ReadKey();
                 }
                 else if (userInput == "3")
                 {

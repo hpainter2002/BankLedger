@@ -24,9 +24,9 @@ namespace BankLedgerVS17
             AccountBalance += amount;
 
             var trans = new Transaction();
-            trans.amount = amount;
-            trans.date = DateTime.Now;
-            trans.description = "Deposit";
+            trans.Amount = amount;
+            trans.Date = DateTime.Now;
+            trans.Description = "Deposit";
 
             TransactionHistory.Add(trans);
 
@@ -43,9 +43,9 @@ namespace BankLedgerVS17
             AccountBalance -= amount;
 
             var trans = new Transaction();
-            trans.amount = -amount;
-            trans.date = DateTime.Now;
-            trans.description = "Withdrawl";
+            trans.Amount = -amount;
+            trans.Date = DateTime.Now;
+            trans.Description = "Withdrawl";
 
             TransactionHistory.Add(trans);
 
@@ -63,9 +63,9 @@ namespace BankLedgerVS17
 
             foreach (var item in TransactionHistory)
             {
-                Console.WriteLine($"Date: {item.date}");
-                Console.WriteLine($"Description: {item.description}");
-                Console.WriteLine($"Amount: {getPrettyMoney(item.amount)}");
+                Console.WriteLine($"Date: {item.Date}");
+                Console.WriteLine($"Description: {item.Description}");
+                Console.WriteLine($"Amount: {getPrettyMoney(item.Amount)}");
                 Console.WriteLine("******************************************");
             }
         }

@@ -22,7 +22,7 @@
 
                 Datastore.Data[newUser.Username] = newUser;
 
-                return Login(newUser.Username, newUser.Password);
+                return Login(username, password);
             }
 
             return null;

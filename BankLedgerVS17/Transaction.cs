@@ -4,8 +4,8 @@ namespace BankLedgerVS17
 {
     class Transaction
     {
-        public DateTime date;
-        public string description;
-        public decimal amount;
+        public DateTime Date;
+        public string Description;
+        public decimal Amount;
     }
 }
