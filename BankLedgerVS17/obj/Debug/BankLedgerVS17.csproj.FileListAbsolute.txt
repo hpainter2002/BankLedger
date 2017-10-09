@@ -7,7 +7,6 @@ C:\Users\David\Desktop\BankLedger\BankLedgerVS17\obj\Debug\BankLedgerVS17.pdb
 D:\Projects\VisualStudio\BankLedgerVS17\BankLedgerVS17\bin\Debug\BankLedgerVS17.exe.config
 D:\Projects\VisualStudio\BankLedgerVS17\BankLedgerVS17\bin\Debug\BankLedgerVS17.exe
 D:\Projects\VisualStudio\BankLedgerVS17\BankLedgerVS17\bin\Debug\BankLedgerVS17.pdb
-D:\Projects\VisualStudio\BankLedgerVS17\BankLedgerVS17\obj\Debug\BankLedgerVS17.csprojResolveAssemblyReference.cache
 D:\Projects\VisualStudio\BankLedgerVS17\BankLedgerVS17\obj\Debug\BankLedgerVS17.csproj.CoreCompileInputs.cache
 D:\Projects\VisualStudio\BankLedgerVS17\BankLedgerVS17\obj\Debug\BankLedgerVS17.exe
 D:\Projects\VisualStudio\BankLedgerVS17\BankLedgerVS17\obj\Debug\BankLedgerVS17.pdb

@@ -12,6 +12,7 @@ namespace BankLedgerVS17
         {
             return Authentications[token];
         }
+
         public static string HashPassword(string password)
         {
             StringBuilder hash = new StringBuilder();

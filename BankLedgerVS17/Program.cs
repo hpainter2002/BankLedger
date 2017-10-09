@@ -1,5 +1,36 @@
 ﻿using System;
 
+/************************************************************
+*                                                           *
+* Filename: Program.cs                                      *
+* Date: 10/8/2017                                           *
+* Author: Hatim Painter                                     *
+*                                                           *
+* Description: This is a simple bank ledger software        *
+*     for keeping track of all your deposits and            *
+*     withdrawls. You can also check your balance and       *
+*     transaction history. It also has the capability       *
+*     of adding multiple accounts to a single user.         *
+*                                                           *
+* Usage: User must enter the option number to proceed.      *
+*                                                           *
+*     First time user:                                      *
+*                                                           *
+*     1. Create a new user                                  *
+*     2. Create a new account                               *
+*     3. Select an account                                  *
+*     4. Deposit/Withdraw/Check Balance/Transaction History *
+*     5. Logout                                             *
+*                                                           *
+*     Registered user:                                      *
+*                                                           *
+*     1. Login                                              *
+*     2. Create a new account / select an account           *
+*     3. Deposit/Withdraw/Check Balance/Transaction History *
+*     4. Logout                                             *
+*                                                           *
+************************************************************/
+
 namespace BankLedgerVS17
 {
     class Program
@@ -11,11 +42,22 @@ namespace BankLedgerVS17
             MainMenu();
         }
 
+        /****************************************************************
+        * 
+        * Function: MainMenu()
+        * 
+        * Parameter: 
+        *      In: none
+        *      Out: none
+        * 
+        * Description: Displays the home and provides the options for the 
+        *       user to create a new user, login with existing credentials
+        *       or exit the program.
+        * 
+        *****************************************************************/
         public static void MainMenu()
         {
             LedgerManager ledgerManager = new LedgerManager();
-            //User CurrentUser = new User();
-            string userInput;
 
             while (true)
             {
@@ -32,24 +74,58 @@ namespace BankLedgerVS17
                 Console.WriteLine();
                 Console.Write("Please select an option: ");
 
-                userInput = Console.ReadLine();
+                var userInput = Console.ReadLine();
 
-                switch (userInput)
+                if (int.TryParse(userInput, out int value))
                 {
-                    case "1":
-                        CreateNewUser(ledgerManager);
-                        break;
-                    case "2":
-                        Login(ledgerManager);
-                        break;
+                    if (value > 0 && value <= 3)
+                    {
+                        switch (userInput)
+                        {
+                            case "1":
+                                CreateNewUser(ledgerManager);
+                                break;
+                            case "2":
+                                Login(ledgerManager);
+                                break;
 
-                    case "3":
-                        return;
+                            case "3":
+                                return;
+                        }
+                    }
+                    else
+                    {
+                        Console.WriteLine();
+                        Console.WriteLine("Incorrect input detected");
+                        Console.WriteLine();
+                        Console.Write("Press any key to return to menu");
+                        Console.ReadKey();
+                    }
+                }
+                else
+                {
+                    Console.WriteLine();
+                    Console.WriteLine("Incorrect input detected");
+                    Console.WriteLine();
+                    Console.Write("Press any key to return to menu");
+                    Console.ReadKey();
                 }
             }
-
         }
 
+        /****************************************************************
+         * 
+         * Function: CreateNewUser()
+         * 
+         * Parameter: 
+         *      In: User - a user object
+         *      Out: none
+         * 
+         * Description: Displays the registration and asks for an account 
+         *      name in order to create a new account for the user passed
+         *      in user object   
+         * 
+         *****************************************************************/
         private static void CreateNewAccount(User user)
         {
             Console.Clear();
@@ -64,6 +140,20 @@ namespace BankLedgerVS17
             //Console.WriteLine("Account was successfuly created");
         }
 
+        /****************************************************************
+        * 
+        * Function: UserMenu()
+        * 
+        * Parameter: 
+        *      In: User - a user object
+        *      Out: UserStatus - determines if the user is logged in
+        *           or logged out
+        * 
+        * Description: Displays the welcome screen after logging in
+        *       and provides the options for the user to create an
+        *       account, select an existing account or logout
+        * 
+        *****************************************************************/
         private static UserStatus UserMenu(User user)
         {
             while (true)
@@ -82,22 +172,61 @@ namespace BankLedgerVS17
                 Console.Write("Please select an option: ");
                 string userInput = Console.ReadLine();
 
-                switch (userInput)
+
+                if (int.TryParse(userInput, out int value))
                 {
-                    case "1":
-                        CreateNewAccount(user);
-                        break;
-                    case "2":
-                        if (SelectAccount(user) == UserStatus.LoggedOut)
+                    if (value > 0 && value <= 3)
+                    {
+                        switch (userInput)
                         {
-                            return UserStatus.LoggedOut;
+                            case "1":
+                                CreateNewAccount(user);
+                                break;
+                            case "2":
+                                if (SelectAccount(user) == UserStatus.LoggedOut)
+                                {
+                                    return UserStatus.LoggedOut;
+                                }
+                                break;
+                            case "3":
+                                return UserStatus.LoggedOut;
                         }
-                        break;
-                    case "3":
-                        return UserStatus.LoggedOut;
+                    }
+                    else
+                    {
+                        Console.WriteLine();
+                        Console.WriteLine("Incorrect input detected");
+                        Console.WriteLine();
+                        Console.Write("Press any key to return to menu");
+                        Console.ReadKey();
+                    }
+
+                }
+                else
+                {
+                    Console.WriteLine();
+                    Console.WriteLine("Incorrect input detected");
+                    Console.WriteLine();
+                    Console.Write("Press any key to return to menu");
+                    Console.ReadKey();
                 }
             }
         }
+
+        /****************************************************************
+        * 
+        * Function: SelectAccount()
+        * 
+        * Parameter: 
+        *       In: User - a user object
+        *       Out: UserStatus - determines if the user is logged in
+        *           or logged out
+        * 
+        * Description: Displays the account selection screen after logging 
+        *       in and provides the options for the user to select an 
+        *       existing account
+        * 
+        *****************************************************************/
         private static UserStatus SelectAccount(User user)
         {
             if (user.Accounts.Count == 0)
@@ -126,17 +255,41 @@ namespace BankLedgerVS17
 
             if (uint.TryParse(accountNumStr, out uint accountNum) && accountNum <= user.Accounts.Count)
             {
-                if (AccountMenu(user, user.Accounts[(int)(accountNum - 1)]) == UserStatus.LoggedOut)
+                if (AccountMenu(user.Accounts[(int)(accountNum - 1)]) == UserStatus.LoggedOut)
                 {
                     return UserStatus.LoggedOut;
                 }
             }
+            else
+            {
+                Console.WriteLine();
+                Console.WriteLine("Invalid account selected! Press any key to return to account menu");
+                Console.ReadKey();
+            }
 
             return UserStatus.LoggedIn;
         }
+
+        /****************************************************************
+        * 
+        * Function: Login()
+        * 
+        * Parameter: 
+        *       In: LedgerManager - ledgerManager object
+        *       Out: none
+        *       
+        * Description: Asks user for username and password upon selecting
+        *       Login from the main menu
+        * 
+        *****************************************************************/
         public static void Login(LedgerManager ledgerManager)
         {
             Console.Clear();
+
+            Console.WriteLine("*****************");
+            Console.WriteLine("----- Login -----");
+            Console.WriteLine("*****************");
+            Console.WriteLine();
             Console.Write("Username: ");
             var username = Console.ReadLine();
             Console.Write("Password: ");
@@ -157,12 +310,25 @@ namespace BankLedgerVS17
                 ledgerManager.Logout(user.Token);
             }
         }
+
+        /****************************************************************
+        * 
+        * Function: CreateNewUser()
+        * 
+        * Parameter: 
+        *       In: LedgerManager - ledgerManager object
+        *       Out: none
+        *       
+        * Description: Asks the user to create new username and password
+        *       to register a new user
+        * 
+        *****************************************************************/
         private static void CreateNewUser(LedgerManager ledgerManager)
         {
             Console.Clear();
-            Console.WriteLine("**************************");
-            Console.WriteLine("*----- Registration -----*");
-            Console.WriteLine("**************************");
+            Console.WriteLine("*******************************");
+            Console.WriteLine("*----- User Registration -----*");
+            Console.WriteLine("*******************************");
             Console.WriteLine();
 
 
@@ -171,9 +337,10 @@ namespace BankLedgerVS17
                 Console.Write("Username: ");
                 var username = Console.ReadLine();
                 Console.Write("Password: ");
-                var password = Console.ReadLine();
+                //var password = Console.ReadLine();
+                var password = ReadPassword();
                 Console.Write("Confirm Password: ");
-                var confirmPassword = Console.ReadLine();
+                var confirmPassword = ReadPassword();
 
                 if (password != confirmPassword)
                 {
@@ -200,7 +367,25 @@ namespace BankLedgerVS17
                 return;
             }
         }
-        private static UserStatus AccountMenu(User user, Account account)
+
+        /****************************************************************
+        * 
+        * Function: AccountMenu()
+        * 
+        * Parameter: 
+        *       In: Account - an account object
+        *       Out: UserStatus - determines if the user is logged in
+        *           or logged out
+        * 
+        * Description: Displays the account menu screen after selecting 
+        *       an account. Here user has the option to interact with 
+        *       the current account they have selected. User can deposit,
+        *       withdraw, check balance, or look at the transaction 
+        *       history. User can also choose to return to the previous
+        *       menu and select another acount or logout.
+        * 
+        *****************************************************************/
+        private static UserStatus AccountMenu(Account account)
         {
             while (true)
             {
@@ -221,75 +406,134 @@ namespace BankLedgerVS17
                 Console.Write("Please select an option: ");
                 string userInput = Console.ReadLine();
 
-                if (userInput == "1" || userInput == "2" && account.AccountBalance != 0)
+                if (int.TryParse(userInput, out int value))
                 {
-                    bool isAmountValid = false;
-
-                    while (!isAmountValid)
+                    if (value > 0 && value <= 6)
                     {
-                        Console.WriteLine();
-                        account.PrintBalance();
-                        Console.WriteLine();
-                        Console.Write("Please Enter Amount: $");
-                        string strAmt = Console.ReadLine();
-
-                        if (decimal.TryParse(strAmt, out decimal amt))
+                        if (userInput == "1" || userInput == "2" && account.AccountBalance != 0)
                         {
-                            if (userInput == "1")
-                            {
-                                isAmountValid = account.Deposit(amt);
-                            }
-                            else
-                            {
-                                isAmountValid = account.Withdrawl(amt);
-                            }
+                            bool isAmountValid = false;
 
-                            if (!isAmountValid)
+                            while (!isAmountValid)
                             {
-                                Console.WriteLine("Invalid amount entered, please enter a valid amount.");
+                                Console.WriteLine();
+                                account.PrintBalance();
+                                Console.WriteLine();
+                                Console.Write("Please Enter Amount: $");
+                                string strAmt = Console.ReadLine();
+
+                                if (decimal.TryParse(strAmt, out decimal amt))
+                                {
+                                    if (userInput == "1")
+                                    {
+                                        isAmountValid = account.Deposit(amt);
+                                    }
+                                    else
+                                    {
+                                        isAmountValid = account.Withdrawl(amt);
+                                    }
+
+                                    if (!isAmountValid)
+                                    {
+                                        Console.WriteLine("Invalid amount entered, please enter a valid amount.");
+                                    }
+                                }
                             }
                         }
+                        else if (userInput == "2" && account.AccountBalance == 0)
+                        {
+                            Console.WriteLine();
+                            Console.WriteLine("Unable to withdraw! Insufficient account balance!");
+                            Console.WriteLine();
+                            Console.WriteLine("Press any key to return to menu");
+                            Console.ReadKey();
+                        }
+                        else if (userInput == "3")
+                        {
+                            Console.Clear();
+                            Console.WriteLine();
+                            account.PrintBalance();
+                            Console.WriteLine();
+                            Console.WriteLine("Press any key to return to previous menu");
+                            Console.ReadKey();
+
+                        }
+                        else if (userInput == "4")
+                        {
+                            Console.Clear();
+                            Console.WriteLine($"Transaction History for {account.AccountName}\n");
+                            account.PrintTransactionHistory();
+                            Console.WriteLine();
+                            account.PrintBalance();
+                            Console.WriteLine();
+                            Console.WriteLine("Press any key to return to previous menu");
+                            Console.ReadKey();
+
+                        }
+                        else if (userInput == "5")
+                        {
+                            return UserStatus.LoggedIn;
+                        }
+                        else if (userInput == "6")
+                        {
+                            return UserStatus.LoggedOut;
+                        }
                     }
-                }
-                else if (userInput == "2" && account.AccountBalance == 0)
-                {
-                    Console.WriteLine();
-                    Console.WriteLine("Unable to withdraw! Insufficient account balance!");
-                    Console.WriteLine();
-                    Console.WriteLine("Press any key to return to menu");
-                    Console.ReadKey();
-                }
-                else if (userInput == "3")
-                {
-                    Console.Clear();
-                    Console.WriteLine();
-                    account.PrintBalance();
-                    Console.WriteLine();
-                    Console.WriteLine("Press any key to return to previous menu");
-                    Console.ReadKey();
+                    else
+                    {
+                        Console.WriteLine();
+                        Console.WriteLine("Incorrect input detected");
+                        Console.WriteLine();
+                        Console.Write("Press any key to return to menu");
+                        Console.ReadKey();
+                    }
 
                 }
-                else if (userInput == "4")
+                else
                 {
-                    Console.Clear();
-                    Console.WriteLine($"Transaction History for {account.AccountName}\n");
-                    account.PrintTransactionHistory();
                     Console.WriteLine();
-                    account.PrintBalance();
+                    Console.WriteLine("Incorrect input detected");
                     Console.WriteLine();
-                    Console.WriteLine("Press any key to return to previous menu");
+                    Console.Write("Press any key to return to menu");
                     Console.ReadKey();
+                }
 
-                }
-                else if (userInput == "5")
-                {
-                    return UserStatus.LoggedIn;
-                }
-                else if (userInput == "6")
-                {
-                    return UserStatus.LoggedOut;
-                }
             }
         }
+
+        public static string ReadPassword()
+        {
+            string password = "";
+            ConsoleKeyInfo info = Console.ReadKey(true);
+            while (info.Key != ConsoleKey.Enter)
+            {
+                if (info.Key != ConsoleKey.Backspace)
+                {
+                    Console.Write("*");
+                    password += info.KeyChar;
+                }
+                else if (info.Key == ConsoleKey.Backspace)
+                {
+                    if (!string.IsNullOrEmpty(password))
+                    {
+                        // remove one character from the list of password characters
+                        password = password.Substring(0, password.Length - 1);
+                        // get the location of the cursor
+                        int pos = Console.CursorLeft;
+                        // move the cursor to the left by one character
+                        Console.SetCursorPosition(pos - 1, Console.CursorTop);
+                        // replace it with space
+                        Console.Write(" ");
+                        // move the cursor to the left by one character again
+                        Console.SetCursorPosition(pos - 1, Console.CursorTop);
+                    }
+                }
+                info = Console.ReadKey(true);
+            }
+            // add a new line because user pressed enter at the end of their password
+            Console.WriteLine();
+            return password;
+        }
+
     }
 }
