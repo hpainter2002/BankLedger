@@ -2,13 +2,6 @@
 {
     class LedgerManager
     {
-        static int NextAccountNumber
-        {
-            get => m_nextAccountNumber++;
-        }
-
-        private static int m_nextAccountNumber = 1;
-
         public User CreateNewUser(string username, string password)
         {
 
@@ -30,7 +23,7 @@
 
         public User Login(string username, string password) => Authentication.Login(username, password);
 
-        public void Logout(string token) => Authentication.Logout(token);
+        public void Logout() => Authentication.Logout();
 
     }
 }

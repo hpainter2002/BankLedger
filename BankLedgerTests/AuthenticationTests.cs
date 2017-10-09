@@ -1,6 +1,5 @@
-﻿using System.Linq.Expressions;
+﻿using BankLedgerVS17;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
-using BankLedgerVS17;
 
 namespace BankLedgerTests
 {
@@ -23,24 +22,17 @@ namespace BankLedgerTests
             string usernameToTest = "username";
             string passwordToTest = "!My_Password*123$";
 
-            User user = new User();
+            LedgerManager ledger = new LedgerManager();
+            var newUser = ledger.CreateNewUser(usernameToTest, passwordToTest);
 
-            Assert.AreNotSame(Authentication.Login(usernameToTest, passwordToTest), user);
+            Assert.IsNotNull(newUser);
+            Assert.AreEqual(Authentication.HashPassword(passwordToTest), newUser.Password);
+            Assert.AreEqual(usernameToTest.ToUpper(), newUser.Username);
 
-            Assert.AreEqual(Authentication.Login(usernameToTest, passwordToTest), null);
-        }
-
-        [TestMethod]
-        public void GenerateValidToken()
-        {
-
-
-        }
-
-        [TestMethod]
-        public void LogoutTest()
-        {
-
+            var loggedinUser = Authentication.Login(usernameToTest, passwordToTest);
+            Assert.IsNotNull(loggedinUser);
+            Assert.AreEqual(Authentication.HashPassword(passwordToTest), loggedinUser.Password);
+            Assert.AreEqual(usernameToTest.ToUpper(), loggedinUser.Username);
         }
     }
 }

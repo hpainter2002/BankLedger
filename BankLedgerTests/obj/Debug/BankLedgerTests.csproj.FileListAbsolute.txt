@@ -6,11 +6,11 @@ D:\Projects\VisualStudio\BankLedgerVS17\BankLedgerTests\bin\Debug\BankLedgerTest
 D:\Projects\VisualStudio\BankLedgerVS17\BankLedgerTests\bin\Debug\BankLedgerVS17.exe
 D:\Projects\VisualStudio\BankLedgerVS17\BankLedgerTests\bin\Debug\Microsoft.VisualStudio.TestPlatform.TestFramework.dll
 D:\Projects\VisualStudio\BankLedgerVS17\BankLedgerTests\bin\Debug\Microsoft.VisualStudio.TestPlatform.TestFramework.Extensions.dll
-D:\Projects\VisualStudio\BankLedgerVS17\BankLedgerTests\bin\Debug\BankLedgerVS17.pdb
 D:\Projects\VisualStudio\BankLedgerVS17\BankLedgerTests\bin\Debug\BankLedgerVS17.exe.config
 D:\Projects\VisualStudio\BankLedgerVS17\BankLedgerTests\bin\Debug\Microsoft.VisualStudio.TestPlatform.TestFramework.xml
 D:\Projects\VisualStudio\BankLedgerVS17\BankLedgerTests\bin\Debug\Microsoft.VisualStudio.TestPlatform.TestFramework.Extensions.xml
-D:\Projects\VisualStudio\BankLedgerVS17\BankLedgerTests\obj\Debug\BankLedgerTests.csprojResolveAssemblyReference.cache
 D:\Projects\VisualStudio\BankLedgerVS17\BankLedgerTests\obj\Debug\BankLedgerTests.csproj.CoreCompileInputs.cache
 D:\Projects\VisualStudio\BankLedgerVS17\BankLedgerTests\obj\Debug\BankLedgerTests.dll
 D:\Projects\VisualStudio\BankLedgerVS17\BankLedgerTests\obj\Debug\BankLedgerTests.pdb
+D:\Projects\VisualStudio\BankLedgerVS17\BankLedgerTests\bin\Debug\BankLedgerVS17.pdb
+D:\Projects\VisualStudio\BankLedgerVS17\BankLedgerTests\obj\Debug\BankLedgerTests.csprojResolveAssemblyReference.cache

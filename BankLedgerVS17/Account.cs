@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Runtime.CompilerServices;
 
 namespace BankLedgerVS17
 {
@@ -11,8 +10,8 @@ namespace BankLedgerVS17
             AccountName = accountName;
         }
 
-        public string AccountName { get; private set; }
-        public decimal AccountBalance { get; private set; } = 0;
+        public string AccountName { get; }
+        public decimal AccountBalance { get; private set; }
         public List<Transaction> TransactionHistory { get; set; } = new List<Transaction>();
 
         public bool Deposit(decimal amount)
@@ -24,10 +23,12 @@ namespace BankLedgerVS17
 
             AccountBalance += amount;
 
-            var trans = new Transaction();
-            trans.Amount = amount;
-            trans.Date = DateTime.Now;
-            trans.Description = "Deposit";
+            var trans = new Transaction
+            {
+                Amount = amount,
+                Date = DateTime.Now,
+                Description = "Deposit"
+            };
 
             TransactionHistory.Add(trans);
 
@@ -43,10 +44,12 @@ namespace BankLedgerVS17
 
             AccountBalance -= amount;
 
-            var trans = new Transaction();
-            trans.Amount = -amount;
-            trans.Date = DateTime.Now;
-            trans.Description = "Withdrawl";
+            var trans = new Transaction
+            {
+                Amount = -amount,
+                Date = DateTime.Now,
+                Description = "Withdrawl"
+            };
 
             TransactionHistory.Add(trans);
 
@@ -55,7 +58,7 @@ namespace BankLedgerVS17
 
         public void PrintBalance()
         {
-            Console.WriteLine($"Your current balance is: {getPrettyMoney(AccountBalance)}");
+            Console.WriteLine($"Your current balance is: {GetPrettyMoney(AccountBalance)}");
         }
 
         public void PrintTransactionHistory()
@@ -66,12 +69,12 @@ namespace BankLedgerVS17
             {
                 Console.WriteLine($"Date: {item.Date}");
                 Console.WriteLine($"Description: {item.Description}");
-                Console.WriteLine($"Amount: {getPrettyMoney(item.Amount)}");
+                Console.WriteLine($"Amount: {GetPrettyMoney(item.Amount)}");
                 Console.WriteLine("******************************************");
             }
         }
 
-        private string getPrettyMoney(decimal amount)
+        private string GetPrettyMoney(decimal amount)
         {
             if (amount < 0)
             {

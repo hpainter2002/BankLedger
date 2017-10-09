@@ -80,16 +80,16 @@ namespace BankLedgerVS17
                 {
                     if (value > 0 && value <= 3)
                     {
-                        switch (userInput)
+                        switch (value)
                         {
-                            case "1":
+                            case 1:
                                 CreateNewUser(ledgerManager);
                                 break;
-                            case "2":
+                            case 2:
                                 Login(ledgerManager);
                                 break;
 
-                            case "3":
+                            case 3:
                                 return;
                         }
                     }
@@ -177,18 +177,18 @@ namespace BankLedgerVS17
                 {
                     if (value > 0 && value <= 3)
                     {
-                        switch (userInput)
+                        switch (value)
                         {
-                            case "1":
+                            case 1:
                                 CreateNewAccount(user);
                                 break;
-                            case "2":
+                            case 2:
                                 if (SelectAccount(user) == UserStatus.LoggedOut)
                                 {
                                     return UserStatus.LoggedOut;
                                 }
                                 break;
-                            case "3":
+                            case 3:
                                 return UserStatus.LoggedOut;
                         }
                     }
@@ -307,7 +307,7 @@ namespace BankLedgerVS17
 
             if (UserMenu(user) == UserStatus.LoggedOut)
             {
-                ledgerManager.Logout(user.Token);
+                ledgerManager.Logout();
             }
         }
 
@@ -361,7 +361,7 @@ namespace BankLedgerVS17
 
                 if (UserMenu(user) == UserStatus.LoggedOut)
                 {
-                    ledgerManager.Logout(user.Token);
+                    ledgerManager.Logout();
                 }
 
                 return;
@@ -410,7 +410,7 @@ namespace BankLedgerVS17
                 {
                     if (value > 0 && value <= 6)
                     {
-                        if (userInput == "1" || userInput == "2" && account.AccountBalance != 0)
+                        if (userInput == "1" || (userInput == "2" && account.AccountBalance != 0))
                         {
                             bool isAmountValid = false;
 

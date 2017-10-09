@@ -16,11 +16,9 @@ namespace BankLedgerTests
             Account acct = new Account("My Test Account");
 
             acct.Deposit(beginningBalance);
-
             Assert.AreEqual(beginningBalance, acct.AccountBalance);
 
             acct.Deposit(amountToDeposit);
-
             Assert.AreEqual(expectedAmount, acct.AccountBalance);
         }
 

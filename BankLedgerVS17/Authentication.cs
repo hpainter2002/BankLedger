@@ -1,18 +1,10 @@
-﻿using System.Collections.Generic;
-using System.Security.Cryptography;
+﻿using System.Security.Cryptography;
 using System.Text;
 
 namespace BankLedgerVS17
 {
     static class Authentication
     {
-        private static Dictionary<string, bool> Authentications = new Dictionary<string, bool>();
-
-        public static bool IsAuthenticated(string token)
-        {
-            return Authentications[token];
-        }
-
         public static string HashPassword(string password)
         {
             StringBuilder hash = new StringBuilder();
@@ -36,9 +28,6 @@ namespace BankLedgerVS17
 
                 if (HashPassword(password) == user.Password)
                 {
-                    user.Token = GenerateToken();
-                    Authentications[user.Token] = true;
-
                     return user;
                 }
             }
@@ -46,17 +35,9 @@ namespace BankLedgerVS17
             return null;
         }
 
-        private static string GenerateToken()
+        public static void Logout()
         {
-            return "token";
-        }
 
-        public static void Logout(string token)
-        {
-            if (Authentications.ContainsKey(token))
-            {
-                Authentications[token] = false;
-            }
         }
     }
 }
